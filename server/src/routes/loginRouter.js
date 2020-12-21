@@ -5,10 +5,12 @@ const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
 router.route("/").post((req, res, next) => {
+  console.log(req.body.username, req.body.password);
   User.find({ username: req.body.username })
     .exec()
     .then((users) => {
       if (users.length < 1) {
+        console.log("Username not found");
         return res.status(401).json({
           message: "Auth failed",
         });
